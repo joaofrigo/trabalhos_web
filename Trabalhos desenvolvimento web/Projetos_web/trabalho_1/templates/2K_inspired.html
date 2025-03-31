@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Projeto Django</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #111; overflow: auto; }
+
+        .slider-container { width: 100vw; height: 100vh; position: relative; overflow: hidden; }
+
+        .slider {
+            width: 100%; height: 100%; position: absolute; top: 0; left: 0;
+        }
+
+        .slider .slide {
+            width: 100%; height: 100%; background-position: center;
+            background-size: 100% 100%; position: absolute; opacity: 0; transition: opacity 1s ease-in-out;
+        }
+
+        .slider .slide.active { opacity: 1; }
+
+        .conteudo {
+            height: 100vh; display: flex; align-items: center; justify-content: center;
+            background-color: #222; color: white; font-size: 24px;
+        }
+
+        .image-gallery {
+            display: flex;
+            width: 100%;
+            margin-top: 20px;
+            padding: 20px 0;
+        }
+
+        .image-gallery .image-item {
+            flex: 1; /* Faz com que as imagens ocupem o mesmo espaço */
+            height: 200px;
+            background-position: center;
+            background-size: 100% 100%; /* Preenche o container sem cortes e sem espaços vazios */
+            background-repeat: no-repeat; /* Evita a repetição da imagem */
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-gallery .image-item:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="slider-container">
+        <div class="slider">
+            <div class="slide active" style="background-image: url('{% static 'feio.jpg' %}');"></div>
+            <div class="slide" style="background-image: url('{% static 'feio2.jpg' %}');"></div>
+            <div class="slide" style="background-image: url('{% static 'feio3.jpg' %}');"></div>
+            <div class="slide" style="background-image: url('{% static 'ultra_blaster.jpg' %}');"></div>
+        </div>
+    </div>
+
+    <div class="image-gallery">
+        <div class="image-item" style="background-image: url('{% static 'feio.jpg' %}');"></div>
+        <div class="image-item" style="background-image: url('{% static 'feio2.jpg' %}');"></div>
+        <div class="image-item" style="background-image: url('{% static 'feio3.jpg' %}');"></div>
+        <div class="image-item" style="background-image: url('{% static 'ultra_blaster.jpg' %}');"></div>
+    </div>
+
+    <script>
+        let index = 0;
+        const slides = document.querySelectorAll(".slider .slide");
+
+        function changeImage() {
+            slides[index].classList.remove("active");
+            index = (index + 1) % slides.length;
+            slides[index].classList.add("active");
+        }
+
+        setInterval(changeImage, 3000);
+    </script>
+</body>
+</html>

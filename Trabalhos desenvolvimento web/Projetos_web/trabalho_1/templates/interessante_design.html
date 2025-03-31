@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Projeto Django</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #111;
+            margin: 0;
+            padding: 0;
+            overflow: auto; /* Para permitir rolar a página */
+        }
+
+        .slider-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden; /* Garante que a área de transição não fique visível */
+        }
+
+        .slider {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .slider .slide {
+            width: 100%;
+            height: 100%;
+            background-position: center;
+            background-size: contain; /* Ajusta para não cortar a imagem */
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slider .slide.active {
+            opacity: 1;
+        }
+
+        .conteudo {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #222;
+            color: white;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slider-container">
+        <div class="slider">
+            <div class="slide active" style="background-image: url('{% static 'feio.jpg' %}');"></div>
+            <div class="slide" style="background-image: url('{% static 'feio2.jpg' %}');"></div>
+            <div class="slide" style="background-image: url('{% static 'feio3.jpg' %}');"></div>
+        </div>
+    </div>
+
+    <div class="conteudo">
+        <p>Conteúdo adicional abaixo do slider</p>
+    </div>
+
+    <script>
+        let index = 0;
+        const slides = document.querySelectorAll(".slider .slide");
+
+        function changeImage() {
+            slides[index].classList.remove("active");
+            index = (index + 1) % slides.length;
+            slides[index].classList.add("active");
+        }
+
+        setInterval(changeImage, 3000);
+    </script>
+</body>
+</html>
